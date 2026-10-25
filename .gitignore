@@ -26,6 +26,11 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# Include the source distribution required for submission
+!/python-package/dist/
+/python-package/dist/*
+!/python-package/dist/*.tar.gz
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
