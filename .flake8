@@ -1,0 +1,8 @@
+[flake8]
+extend-exclude =
+    .venv,
+    __pycache__,
+    build,
+    dist,
+    *.egg-info
+max-line-length = 79
