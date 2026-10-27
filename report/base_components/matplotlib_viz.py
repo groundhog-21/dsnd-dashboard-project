@@ -16,11 +16,12 @@ matplotlib.rcParams['savefig.format'] = 'png'
 
 def matplotlib2fasthtml(func):
     '''
-    Copy of https://github.com/koaning/fh-matplotlib, which is currently hardcoding the 
-    image format as jpg. png or svg is needed here.
+    Copy of https://github.com/koaning/fh-matplotlib, which is currently
+    hardcoding the image format as jpg. png or svg is needed here.
     '''
     def wrapper(*args, **kwargs):
-        # Reset the figure to prevent accumulation. Maybe we need a setting for this?
+        # Reset the figure to prevent accumulation.
+        # Maybe we need a setting for this?
         fig = plt.figure()
 
         # Run function as normal
@@ -44,13 +45,12 @@ class MatplotlibViz(BaseComponent):
     @matplotlib2fasthtml
     def build_component(self, entity_id, model):
         return self.visualization(entity_id, model)
-    
-    
+
     def visualization(self, entity_id, model):
         pass
 
     def set_axis_styling(self, ax, bordercolor='white', fontcolor='white'):
-        
+
         ax.title.set_color(fontcolor)
         ax.xaxis.label.set_color(fontcolor)
         ax.yaxis.label.set_color(fontcolor)
@@ -62,4 +62,3 @@ class MatplotlibViz(BaseComponent):
         for line in ax.get_lines():
             line.set_linewidth(4)
             line.set_linestyle('dashdot')
-

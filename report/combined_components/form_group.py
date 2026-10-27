@@ -1,6 +1,7 @@
 from .combined_component import CombinedComponent
 from fasthtml.common import Button, Form, Group
 
+
 class FormGroup(CombinedComponent):
 
     id = ""
@@ -18,11 +19,11 @@ class FormGroup(CombinedComponent):
     def outer_div(self, children, div_args):
 
         return Form(Group(*children), **div_args)
-    
+
     def div_args(self, userid, model):
 
         return {
             'id': self.id,
             'action': self.action,
             'method': self.method,
-            }
+        }
