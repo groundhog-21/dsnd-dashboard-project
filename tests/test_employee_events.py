@@ -1,5 +1,6 @@
-import pytest
 from pathlib import Path
+
+import pytest
 
 # Using pathlib create a project_root
 # variable set to the absolute path
@@ -24,6 +25,7 @@ def db_path():
         / 'employee_events.db'
     )
 
+
 # Define a function called
 # `test_db_exists`
 # This function should receive an argument
@@ -31,11 +33,13 @@ def db_path():
 # the creates the "fixture" for
 # the database's filepath
 # YOUR CODE HERE
+def test_db_exists(db_path):
 
     # using the pathlib `.is_file` method
     # assert that the sqlite database file exists
     # at the location passed to the test_db_exists function
     # YOUR CODE HERE
+    assert db_path.is_file()
 
 
 @pytest.fixture
@@ -51,32 +55,41 @@ def table_names(db_conn):
     ).fetchall()
     return [x[0] for x in name_tuples]
 
+
 # Define a test function called
 # `test_employee_table_exists`
 # This function should receive the `table_names`
 # fixture as an argument
 # YOUR CODE HERE
+def test_employee_table_exists(table_names):
 
     # Assert that the string 'employee'
     # is in the table_names list
     # YOUR CODE HERE
+    assert 'employee' in table_names
+
 
 # Define a test function called
 # `test_team_table_exists`
 # This function should receive the `table_names`
 # fixture as an argument
 # YOUR CODE HERE
+def test_team_table_exists(table_names):
 
     # Assert that the string 'team'
     # is in the table_names list
     # YOUR CODE HERE
+    assert 'team' in table_names
+
 
 # Define a test function called
 # `test_employee_events_table_exists`
 # This function should receive the `table_names`
 # fixture as an argument
 # YOUR CODE HERE
+def test_employee_events_table_exists(table_names):
 
     # Assert that the string 'employee_events'
     # is in the table_names list
     # YOUR CODE HERE
+    assert 'employee_events' in table_names

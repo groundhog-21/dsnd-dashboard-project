@@ -1,19 +1,21 @@
+/* Load the regular (400) and bold (700) Inter fonts from Google Fonts. */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
+/* Set the page's top and left margins and its height. */
 body {
     margin-top: 1%;
     margin-left: 8px;
     height: 100%;
 }
 
-/* Center the dashboard title */
+/* Center the title, use Inter, and leave space below it. */
 h1 {
     font-family: "Inter", sans-serif;
     text-align: center;
     margin-bottom: 3rem;
 }
 
-/* Center the filter box */
+/* Center the filter box, use Inter, and leave space before the charts. */
 #top-filters {
     font-family: "Inter", sans-serif;
     width: fit-content;
@@ -22,6 +24,7 @@ h1 {
     margin-bottom: 2rem;
 }
 
+/* Arrange controls horizontally with spacing and padding; wrap if needed. */
 #top-filters > fieldset {
     display: flex;
     align-items: center;
@@ -32,6 +35,7 @@ h1 {
     padding-right: calc(1rem + 2ch);
 }
 
+/* Use the filter box's font for the dropdown and button, and align them. */
 #top-filters select,
 #top-filters button {
     font-family: inherit;
@@ -39,22 +43,25 @@ h1 {
     vertical-align: middle;
 }
 
+/* Place the dropdown label and menu side by side, centered vertically. */
 #selector {
     display: flex;
     align-items: center;
 }
 
+/* Leave space after the label and move it down slightly for alignment. */
 #selector > label {
     margin-right: 0.75em;
     position: relative;
     top: 1px;
 }
 
-/* Notes typography */
+/* Use Inter throughout the notes table. */
 #notes-section table {
     font-family: "Inter", sans-serif;
 }
 
+/* Widen the date column, add space after it, and keep dates on one line. */
 #notes-section th:first-child,
 #notes-section td:first-child {
     min-width: 6rem;
@@ -62,18 +69,21 @@ h1 {
     white-space: nowrap;
 }
 
+/* Display column headings in bold, left-aligned, 12-point text. */
 #notes-section th {
     font-size: 12pt;
     font-weight: 700;
     text-align: left;
 }
 
+/* Display note dates and note text at 11 points. */
 #notes-section td {
     font-size: 11pt;
 }
 
-/* Keep chart images aligned; place the caption below the risk image. */
+/* Align the tops of the events chart and the risk chart container. */
 .grid > img,
+/* Keep the risk chart and caption together at the chart's intended width. */
 .risk-chart {
     vertical-align: top;
 }
@@ -84,12 +94,14 @@ h1 {
     max-width: 100%;
 }
 
+/* Fit the risk image to its container while preserving its proportions. */
 .risk-chart > img {
     display: block;
     width: 100%;
     height: auto;
 }
 
+/* Use 10-point Inter and align the caption with the risk chart's plot area. */
 .risk-caption {
     margin: 0.5rem 10% 1rem 12.5%;
     font-family: "Inter", sans-serif;
