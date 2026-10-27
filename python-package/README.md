@@ -45,40 +45,42 @@ it does not make predictions.
 
 ## Database schema
 
-The diagram shows the stored columns. Matching employee and team IDs are used
-to join tables; the database does not declare primary or foreign key constraints.
+Adapted from Udacity's project diagram. `PK` means primary key and `FK`
+means foreign key. These labels and relationships reproduce the course diagram;
+the supplied SQLite database does not enforce these key constraints.
+The additional `index` columns are omitted for clarity.
 
 ```mermaid
 erDiagram
-    employee {
-        INTEGER index
-        INTEGER employee_id
-        TEXT first_name
-        TEXT last_name
-        INTEGER team_id
-    }
     team {
-        INTEGER index
-        INTEGER team_id
+        INTEGER team_id PK
         TEXT team_name
         TEXT shift
         TEXT manager_name
     }
-    employee_events {
-        INTEGER index
-        TEXT event_date
-        INTEGER employee_id
+    employee {
+        INTEGER employee_id PK
+        TEXT first_name
+        TEXT last_name
         INTEGER team_id
+    }
+    notes {
+        INTEGER employee_id PK
+        INTEGER team_id PK
+        TEXT note
+        TEXT note_date PK
+    }
+    employee_events {
+        TEXT event_date
+        INTEGER employee_id FK
+        INTEGER team_id FK
         INTEGER positive_events
         INTEGER negative_events
     }
-    notes {
-        INTEGER index
-        INTEGER employee_id
-        INTEGER team_id
-        TEXT note
-        TEXT note_date
-    }
+
+    team ||--o{ employee_events : "team_id"
+    employee ||--o{ employee_events : "employee_id"
+    notes }o--o{ employee_events : ""
 ```
 
 ## Build a source distribution
