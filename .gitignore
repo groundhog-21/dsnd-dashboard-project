@@ -70,6 +70,9 @@ db.sqlite3-journal
 instance/
 .webassets-cache
 
+# FastHTML session key
+.sesskey
+
 # Scrapy stuff:
 .scrapy
 
