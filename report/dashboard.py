@@ -1,5 +1,6 @@
-from fasthtml.common import Div, FastHTML, H1, serve
+from fasthtml.common import Div, FastHTML, H1, Link, serve
 import matplotlib.pyplot as plt
+from matplotlib import font_manager
 
 # Import QueryBase, Employee, Team from employee_events
 # YOUR CODE HERE
@@ -8,7 +9,7 @@ from employee_events import QueryBase  # noqa: F401 - requested by starter
 
 # import the load_model function from the utils.py file
 # YOUR CODE HERE
-from utils import load_model
+from utils import load_model, project_root
 
 """
 Below, we import the parent classes
@@ -25,6 +26,14 @@ from base_components import (
 from combined_components import FormGroup, CombinedComponent
 
 
+font_directory = project_root / "assets" / "fonts"
+
+for font_file in font_directory.glob("*.ttf"):
+    font_manager.fontManager.addfont(str(font_file))
+
+plt.rcParams["font.family"] = "Inter"
+
+
 # Create a subclass of base_components/dropdown
 # called `ReportDropdown`
 # YOUR CODE HERE
@@ -39,7 +48,7 @@ class ReportDropdown(Dropdown):
         #  Set the `label` attribute so it is set
         #  to the `name` attribute for the model
         # YOUR CODE HERE
-        self.label = model.name
+        self.label = model.name.title()
 
         # Return the output from the
         # parent class's build_component method
@@ -74,7 +83,7 @@ class Header(BaseComponent):
         # return a fasthtml H1 objects
         # containing the model's name attribute
         # YOUR CODE HERE
-        return H1(model.name)
+        return H1(f"{model.name.title()} Performance")
 
 
 # Create a subclass of base_components/MatplotlibViz
@@ -120,7 +129,7 @@ class LineChart(MatplotlibViz):
         # and assign the figure and axis
         # to variables
         # YOUR CODE HERE
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(8.96, 4.8))
 
         # call the .plot method for the
         # cumulative counts dataframe
@@ -139,7 +148,10 @@ class LineChart(MatplotlibViz):
 
         # Set title and labels for x and y axis
         # YOUR CODE HERE
-        ax.set_title('Positive and Negative Events')
+        ax.set_title(
+            'Cumulative Positive and Negative Events', fontsize=20
+        )
+        ax.yaxis.set_major_formatter("{x:,.0f}")
         ax.set_xlabel('Date')
         ax.set_ylabel('Cumulative Events')
 
@@ -194,18 +206,35 @@ class BarChart(MatplotlibViz):
 
         # Initialize a matplotlib subplot
         # YOUR CODE HERE
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(8.96, 4.8))
 
         # Run the following code unchanged
         ax.barh([''], [pred])
         ax.set_xlim(0, 1)
         ax.set_title('Predicted Recruitment Risk', fontsize=20)
+        ax.set_xlabel('Predicted Recruitment Risk')
+        ax.set_ylabel('')
+
+        color_position = min(max(pred / 0.2, 0), 1)
+        risk_color = plt.get_cmap("Oranges")(color_position)
+        ax.patches[0].set_facecolor(risk_color)
 
         # pass the axis variable
         # to the `.set_axis_styling`
         # method
         # YOUR CODE HERE
         self.set_axis_styling(ax, bordercolor='black', fontcolor='black')
+
+    def outer_div(self, component):
+        caption = (
+            "Color intensity spans 0-20% risk; "
+            "above 20% color intensity is at a maximum."
+        )
+        return Div(
+            component,
+            Div(caption, cls="risk-caption"),
+            cls="risk-chart",
+        )
 
 
 # Create a subclass of combined_components/CombinedComponent
@@ -228,6 +257,11 @@ class Visualizations(CombinedComponent):
 # called `NotesTable`
 # YOUR CODE HERE
 class NotesTable(DataTable):
+
+    column_labels = {"note_date": "Note Date", "note": "Note"}
+
+    def outer_div(self, component):
+        return Div(component, id="notes-section")
 
     # Overwrite the `component_data` method
     # using the same parameters as the parent class
@@ -281,7 +315,14 @@ class Report(CombinedComponent):
 
 # Initialize a fasthtml app
 # YOUR CODE HERE
-app = FastHTML()
+app = FastHTML(
+    hdrs=(Link(rel="stylesheet", href="/assets/report.css"),)
+)
+app.static_route(
+    ext=".css",
+    prefix="/assets/",
+    static_path=str(project_root / "assets"),
+)
 rt = app.route
 
 # Initialize the `Report` class
@@ -363,4 +404,4 @@ async def update_data(r):
     elif profile_type == 'Team':
         return RedirectResponse(f"/team/{id}", status_code=303)
 
-serve()
+serve(host="127.0.0.1")

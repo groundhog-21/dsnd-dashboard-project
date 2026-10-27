@@ -1,5 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
 body {
-    margin-top: 5%;
-    margin-left: 25%;
+    margin-top: 1%;
+    margin-left: 8px;
     height: 100%;
+}
+
+/* Center the dashboard title */
+h1 {
+    font-family: "Inter", sans-serif;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* Center the filter box */
+#top-filters {
+    font-family: "Inter", sans-serif;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+    margin-bottom: 2rem;
+}
+
+#top-filters > fieldset {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 1rem;
+    padding-right: calc(1rem + 2ch);
+}
+
+#top-filters select,
+#top-filters button {
+    font-family: inherit;
+    margin: 0;
+    vertical-align: middle;
+}
+
+#selector {
+    display: flex;
+    align-items: center;
+}
+
+#selector > label {
+    margin-right: 0.75em;
+    position: relative;
+    top: 1px;
+}
+
+/* Notes typography */
+#notes-section table {
+    font-family: "Inter", sans-serif;
+}
+
+#notes-section th:first-child,
+#notes-section td:first-child {
+    min-width: 6rem;
+    padding-right: 1rem;
+    white-space: nowrap;
+}
+
+#notes-section th {
+    font-size: 12pt;
+    font-weight: 700;
+    text-align: left;
+}
+
+#notes-section td {
+    font-size: 11pt;
+}
+
+/* Keep chart images aligned; place the caption below the risk image. */
+.grid > img,
+.risk-chart {
+    vertical-align: top;
+}
+
+.risk-chart {
+    display: inline-block;
+    width: 896px;
+    max-width: 100%;
+}
+
+.risk-chart > img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.risk-caption {
+    margin: 0.5rem 10% 1rem 12.5%;
+    font-family: "Inter", sans-serif;
+    font-size: 10pt;
+    text-align: left;
 }
